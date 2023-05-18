@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+public static void loanCalculuation(Scanner main, String major, String job, int salary) throws FileNotFoundException {
+    System.out.printf("The national average yearly salary for a %s is $%d\n", job, salary); // will run into issue of commas in salary
+    System.out.print("Student loan amount (no more than six digits): $");
+    //will account for user error
+    while (!main.hasNextInt()) { // need to find proper way to test for millions
+        System.out.println("This is an invalid output. Please put a loan amount less than $999,999.");
+        System.out.print("Student loan amount (no more than six digits): ");
+        main.next();
+    }
+    int loanAmount = main.nextInt();
+    System.out.print("Student loan rate (as a percent): ");
+    while (!main.hasNextDouble()) {  //|| (main.hasNext() && main.nextInt() > 100)) {
+        System.out.println("This is an invalid output. Please put your loan rate in as a percent (w/o the percent symbol)");
+        System.out.print("Student loan rate (as a percent): ");
+        main.next();
+    }
+    double loanRate = main.nextDouble();
+
+    System.out.print("Term of loan (in years): ");
+    while (!main.hasNextInt()) {
+        System.out.println("This is an invalid input");
+        System.out.print("Term of loan (in years): ");
+        main.next();
+    }
+    int loanTerm = main.nextInt();
+    // calculation monthly loan payment (THERE IS SOME ISSUE IN THE LOAN CALCULATION)
+
+    double loanMonthlyPay = (loanRate / 12.0/100) * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0, loanTerm * 12))));
+    double loanPercentSalary = loanMonthlyPay * 12/ salary * 100;
+    System.out.println("Summary of provided information: ");
+    //problem here
+    System.out.printf("Major: %s \nChosen job: %s \nAverage yearly salary: %d " +
+                    "\nInterest amount: %d \nInterest rate: %.2f%% \nTerm of loan: %d years \n" +
+                    "Monthly loan payment: %.1f \nPercent of monthly salary going toward loan: %.1f%% \n"
+            , major, job, salary, loanAmount, loanRate, loanTerm, loanMonthlyPay, loanPercentSalary);
+    System.out.print("Do you want a copy of this information stored on a separate file?");
+    if (main.next().equalsIgnoreCase("yes")) {
+        System.out.print("Type in a file name: "); // user error for file names
+        String outputFileName = main.next();
+        PrintStream output = new PrintStream(new File("outputFileName"));
+    }
+}
+
+
