@@ -122,10 +122,13 @@ https://www.bls.gov/oes/current/oes_nat.htm#00-0000
 ## Member's Contribution/Role
 Madeline: Creating file
 	obtaining and communicating with major/loan personel to properly format file for Scanner use
+
 Amanda: File/major information
-	Scanning for user input and file based on resonse of user. Store information on career choice and major which will 	   be used by loan personel.
+	Scanning for user input and file based on resonse of user. Store information on career choice and major which will be used by loan personel.
+
 Jasmine: File/loan information
-	Based on career choice loan information will be processes using data from file. Program will be created using math  	    operations, scanner, printstream and potentially arrays.
+	Based on career choice loan information will be processes using data from file. Program will be created using math operations, scanner, printstream and potentially arrays.
+
 Ryan: Graphic design 
 	Based on final information on final loan rate.
 
