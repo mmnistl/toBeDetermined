@@ -6,14 +6,6 @@ public class Project {
         fileCreation();
         
     }
-   public static void majorJobInformaion(Scanner file) {
-        System.out.println(); //print prompt
-        System.out.println("Here are a list of majors");
-        while(file.next().equalsIgnoreCase("majors") {
-            System.out.println(file.nextLine());
-        }
-        System.out.println("Type in your major of interest:"); // could get them to input more than one and compare it for them
-    }
     public static void loanCalculuation(Scanner main, String major, String job, int salary) throws FileNotFoundException {
         System.out.printf("The national average yearly salary for a %s is $%double", job, salary);
         System.out.println("Student loan amount (no more than six digits): ");
