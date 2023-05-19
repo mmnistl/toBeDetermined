@@ -1,46 +1,67 @@
 import java.io.*;
 import java.util.*;
-public static void loanCalculuation(Scanner main, String major, String job, int salary) throws FileNotFoundException {
-    System.out.printf("The national average yearly salary for a %s is $%d\n", job, salary); // will run into issue of commas in salary
-    System.out.print("Student loan amount (no more than six digits): $");
-    //will account for user error
-    while (!main.hasNextInt()) { // need to find proper way to test for millions
-        System.out.println("This is an invalid output. Please put a loan amount less than $999,999.");
-        System.out.print("Student loan amount (no more than six digits): ");
-        main.next();
+public class Project {
+    public static void main(String[] args) throws FileNotFoundException{
+        loanCalculations(); //need to return all values calculated in loan section
+        fileCreation();
+        
     }
-    int loanAmount = main.nextInt();
-    System.out.print("Student loan rate (as a percent): ");
-    while (!main.hasNextDouble()) {  //|| (main.hasNext() && main.nextInt() > 100)) {
-        System.out.println("This is an invalid output. Please put your loan rate in as a percent (w/o the percent symbol)");
-        System.out.print("Student loan rate (as a percent): ");
-        main.next();
-    }
-    double loanRate = main.nextDouble();
+    public static void loanCalculuation(Scanner main, String major, String job, int salary) throws FileNotFoundException {
+        System.out.printf("The national average yearly salary for a %s is $%double", job, salary); // will run into issue of commas in salar
+        System.out.println("Student loan amount (no more than six digits): ");
+        //will account for user error
+        while (!main.hasNextInt() || (main.hasNextInt() && main.next().length() > 6)) {
+            System.out.println("This is an invalid output. Please put a loan amount less than $999,999.");
+        }
+        int loanAmount = main.nextInt();
+        System.out.println("Student loan rate (as a percent): ");
+        while (!main.hasNextInt() || (main.hasNext() && main.nextInt() > 100)) {
+            System.out.println("This is an invalid output. Please put your loan rate in as a percent (w/o the percent symbol)");
+        }
+        int loanRate = main.nextInt();
 
-    System.out.print("Term of loan (in years): ");
-    while (!main.hasNextInt()) {
-        System.out.println("This is an invalid input");
         System.out.print("Term of loan (in years): ");
-        main.next();
-    }
-    int loanTerm = main.nextInt();
-    // calculation monthly loan payment (THERE IS SOME ISSUE IN THE LOAN CALCULATION)
+        while (!main.hasNextInt()) {
+            System.out.println("This is an invalid input");
+        }
+        int loanTerm = main.nextInt();
+        // calculation monthly loan payment
 
-    double loanMonthlyPay = (loanRate / 12.0/100) * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0, loanTerm * 12))));
-    double loanPercentSalary = loanMonthlyPay * 12/ salary * 100;
-    System.out.println("Summary of provided information: ");
-    //problem here
-    System.out.printf("Major: %s \nChosen job: %s \nAverage yearly salary: %d " +
-                    "\nInterest amount: %d \nInterest rate: %.2f%% \nTerm of loan: %d years \n" +
-                    "Monthly loan payment: %.1f \nPercent of monthly salary going toward loan: %.1f%% \n"
-            , major, job, salary, loanAmount, loanRate, loanTerm, loanMonthlyPay, loanPercentSalary);
-    System.out.print("Do you want a copy of this information stored on a separate file?");
-    if (main.next().equalsIgnoreCase("yes")) {
-        System.out.print("Type in a file name: "); // user error for file names
-        String outputFileName = main.next();
-        PrintStream output = new PrintStream(new File("outputFileName"));
+        double loanMonthlyPay = loanRate / 12.0/100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0/100, loanTerm * 12))));
+        double loanPercentSalary = loanMonthlyPay / salary * 100;
+        System.out.println("Summary of provided information: ");
+        System.out.printf("Major: %s \nChosen job: %s \nAverage yearly salary: %d " +
+                        "\nInterest amount: %d \n Interest rate: %.1f% \nTerm of loan: %d years \n" +
+                        "Monthly loan payment: $%d \n Percent of monthly salary going toward loan: %.1f"
+                , major, job, salary, loanAmount, loanRate, loanTerm, loanMonthlyPay, loanPercentSalary);
+
     }
+    public static void fileCreation(Scanner main) throws FileNotFoundException {
+        System.out.print("Do you want a copy of this information stored on a separate file? ");
+        String response = main.next();
+        while (!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
+            System.out.println("Invalid response (yes/no)");
+            System.out.print("Do you want a copy of this information stored on a separate file? ");
+            response = main.next();
+        }
+        if (response.equalsIgnoreCase("yes")) {
+            System.out.print("Type in a file name: "); // user error for file names
+            String outputFileName = main.next() + ".txt";
+            System.out.println(outputFileName);
+            while ((outputFileName.indexOf('@') != -1) || (outputFileName.indexOf('$') != -1)) { // have to account for rest of special characters;
+                System.out.println("Invalid file name.");
+                System.out.println("Do you want information on proper file names? yes/no");
+                String answerFileInfo = main.next();
+                if (answerFileInfo.equalsIgnoreCase("yes")) {
+                    System.out.println("Allowed: letters, number, (), _, -, , ,, .");
+                    System.out.println("Not Allowed: \n*spaces\n*Special Characters: @, $, %, &, \\, /, :, *, ?, \"," +
+                            " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
+                }
+                System.out.print("Type in a file name: ");
+                outputFileName = main.next();
+            }
+            PrintStream output = new PrintStream(new File(outputFileName));
+        }
+    }
+
 }
-
-
