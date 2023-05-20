@@ -1,0 +1,25 @@
+public static String majorChoice(Scanner main) throws FileNotFoundException {
+      Scanner majors = new Scanner(new File("C:/Users/TheAm/Documents/CS complied programs/projects/majors.txt")); //71 lines
+      String[] majorsChoices = new String[50]; //dependent on #majors;
+      for (int j = 0; j < majorsChoices.length; j++) {
+          majorsChoices[j] = majors.nextLine();
+          System.out.println(majorsChoices[j]);
+      }
+      System.out.print("\nChosen major: ");
+      String major = main.nextLine();
+      int i = 0;
+      while (i < majorsChoices.length) {
+          if (major.equalsIgnoreCase(majorsChoices[i])) {
+              major = majorsChoices[i];
+              i = majorsChoices.length;
+          }
+          i++;
+          if (i == majorsChoices.length) {
+              i = 0;
+              System.out.println("Invalid major inputted. Please try again and chose from the list provided.");
+              System.out.print("Chosen major: ");
+              major = main.nextLine();
+          }
+      }
+      return major;
+}
