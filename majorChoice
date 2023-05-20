@@ -1,5 +1,5 @@
 public static String majorChoice(Scanner main) throws FileNotFoundException {
-      Scanner majors = new Scanner(new File("C:/Users/TheAm/Documents/CS complied programs/projects/majors.txt")); //71 lines
+      Scanner majors = new Scanner(new File());  //need to put file path with majors here
       String[] majorsChoices = new String[50]; //dependent on #majors;
       for (int j = 0; j < majorsChoices.length; j++) {
           majorsChoices[j] = majors.nextLine();
