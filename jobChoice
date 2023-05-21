@@ -1,11 +1,11 @@
-public static String jobChoice(Scanner main, String major) throws FileNotFoundException {
-    Scanner jobFile = new Scanner(new File()); //need to put file with jobs here
+public static String jobChoice(Scanner main, String jobsFile, String major) throws FileNotFoundException {
+    Scanner jobFile = new Scanner(new File(jobsFile));
     String jobs[] = new String[10];
     String majorInFile = "Jobs you can get with a four-year " + major + " degree:";
     //prints jobs of major
-    System.out.println(majorInFile);
+    System.out.println("\n" + majorInFile);
     while (jobFile.hasNextLine()) {
-        if (jobFile.nextLine().equals(majorInFile)) {
+        if (jobFile.nextLine().equalsIgnoreCase(majorInFile)) {
             for (int i = 0; i < jobs.length; i++) {
                 jobs[i] = jobFile.nextLine();
                 System.out.println(jobs[i]);
@@ -15,10 +15,12 @@ public static String jobChoice(Scanner main, String major) throws FileNotFoundEx
     //interacts with user to ask for them to pick a job
     System.out.print("\nWhich job interests you? ");
     String job = main.nextLine();
+    int salary = 0;
     int i = 0;
     while (i < jobs.length) {
         if (job.equalsIgnoreCase(jobs[i])) {
             job = jobs[i];
+            salary =
             i = jobs.length;
         }
         i++;
