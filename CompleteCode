@@ -131,17 +131,14 @@ public class Project {
         int loanTerm = main.nextInt();
 
         // calculation monthly loan payment
-        double loanMonthlyPay = loanRate / 12.0/100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0/100, loanTerm * 12))));
-        double loanPercentSalary = loanMonthlyPay *12/ salary * 100;
+        int loanMonthlyPay = (int) Math.round(loanRate / 12.0/100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0/100, loanTerm * 12)))));
+        int loanPercentSalary = (int) Math.round(loanMonthlyPay *12.0/ salary * 100);
         String loanSummary = "Major: " + major + "\nChosen job: " + job + "\nAverage yearly salary: " + salary
-                + "\nLoan: " + loanAmount + "\nInterest rate: " + roundingTenths(loanRate) + "\nTerm of loan: " + loanTerm
-                + " years" + "\nMonthly loan payment: $" + roundingTenths(loanMonthlyPay) + "\nPercent of monthly salary going towards loan: "
-                + roundingTenths(loanPercentSalary);
+                + "\nLoan: " + loanAmount + "\nInterest rate: " + loanRate + "\nTerm of loan: " + loanTerm
+                + " years" + "\nMonthly loan payment: $" + loanMonthlyPay + "\nPercent of monthly salary going towards loan: "
+                + loanPercentSalary;
         System.out.println("\nSummary of provided information: " + loanSummary);
         return loanSummary;
-    }
-    public static double roundingTenths(double numberToRound) {
-        return (int) Math.round(numberToRound*100)/100.0;
     }
     
     //final file output
