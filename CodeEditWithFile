@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-public class CompleteCodeEdit {
+public class CodeEditWithFile {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner main = new Scanner(System.in);
         //files path with information or just string with information
@@ -14,14 +14,7 @@ public class CompleteCodeEdit {
         int salary = getSalary(salariesFile, job);
         String loanSummary = loanCalculuation(main, major, job, salary);
 
-        //will print out all information on a final file (need to find out how to make a file)
-        /*String finalFile = fileCreation(main);
-        if(finalFile.equals("This is the end of the program.")) {
-            PrintStream finalOutput = new PrintStream(new File(finalFile));
-            finalOutput.print(loanSummary);
-        }*/
     }
-
     // majors
     public static String majorChoice(Scanner main, String majorFile) throws FileNotFoundException {
         Scanner majors = new Scanner(new File(majorFile));
@@ -91,8 +84,8 @@ public class CompleteCodeEdit {
     //salary
     public static int getSalary(String salariesFile, String job) throws FileNotFoundException {
         Scanner salaries = new Scanner(new File(salariesFile)); //
-        while(salaries. hasNextLine()) {
-            if(job.equalsIgnoreCase(salaries.nextLine())) {
+        while (salaries.hasNextLine()) {
+            if (job.equalsIgnoreCase(salaries.nextLine())) {
                 return salaries.nextInt();
             }
         }
@@ -133,8 +126,8 @@ public class CompleteCodeEdit {
         int loanTerm = main.nextInt();
 
         // calculation monthly loan payment
-        double loanMonthlyPay = loanRate / 12.0/100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0/100, loanTerm * 12))));
-        double loanPercentSalary = loanMonthlyPay *12/ salary * 100;
+        double loanMonthlyPay = loanRate / 12.0 / 100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0 / 100, loanTerm * 12))));
+        double loanPercentSalary = loanMonthlyPay * 12 / salary * 100;
         String loanSummary = "Major: " + major + "\nChosen job: " + job + "\nAverage yearly salary: " + salary
                 + "\nLoan: " + loanAmount + "\nInterest rate: " + roundingTenths(loanRate) + "\nTerm of loan: " + loanTerm
                 + " years" + "\nMonthly loan payment: $" + roundingTenths(loanMonthlyPay) + "\nPercent of monthly salary going towards loan: "
@@ -147,43 +140,52 @@ public class CompleteCodeEdit {
         String response = main.next();
         while (!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
             System.out.println("Invalid response (yes/no).");
-            System.out.print("\nDo you want a copy of this information stored on a separate file? ");
+            System.out.print("Do you want a copy of this information stored on a separate file? ");
             response = main.next();
         }
 
         if (response.equalsIgnoreCase("yes")) {
             System.out.print("\nEnter a file path: "); // copy and paste path without quotes
             String filePath = main.next();
-            if ((filePath.indexOf('@') != -1) || (filePath.indexOf('$') != -1) || (filePath.indexOf('%') != -1) || (filePath.indexOf('&') != -1) ||
-                    (filePath.indexOf('\\') != -1) || (filePath.indexOf('/') != -1) || (filePath.indexOf(':') != -1) ||
-                    (filePath.indexOf('*') != -1) || (filePath.indexOf('?') != -1) || (filePath.indexOf('\"') != -1) ||
+            
+            while ((filePath.indexOf('@') != -1) || (filePath.indexOf('$') != -1) || (filePath.indexOf('%') != -1) || (filePath.indexOf('&') != -1) ||
+                    (filePath.indexOf('/') != -1) || (filePath.indexOf('*') != -1) || (filePath.indexOf('?') != -1) || (filePath.indexOf('\"') != -1) ||
                     (filePath.indexOf('\'') != -1) || (filePath.indexOf('<') != -1) || (filePath.indexOf('>') != -1) ||
                     (filePath.indexOf('|') != -1) || (filePath.indexOf('~') != -1) || (filePath.indexOf('`') != -1) ||
                     (filePath.indexOf('#') != -1) || (filePath.indexOf('^') != -1) || (filePath.indexOf('+') != -1) ||
                     (filePath.indexOf('=') != -1) || (filePath.indexOf('{') != -1) || (filePath.indexOf('}') != -1) ||
-                    (filePath.indexOf('[') != -1) || (filePath.indexOf(']') != -1) || (filePath.indexOf(';') != -1) || (filePath.indexOf('!') != -1)) { // have to account for special characters;
+                    (filePath.indexOf('[') != -1) || (filePath.indexOf(']') != -1) || (filePath.indexOf(';') != -1) || (filePath.indexOf('!') != -1)) { // have to account for special characters
                 System.out.println("Invalid file path.");
                 System.out.print("Do you want information on proper file paths(yes/no)? ");
                 String answerFileInfo = main.next();
+                while (!answerFileInfo.equalsIgnoreCase("yes") && !answerFileInfo.equalsIgnoreCase("no")) {
+                    System.out.println("Invalid response (yes/no).");
+                    System.out.print("Do you want information on proper file paths(yes/no)? ");
+                    answerFileInfo = main.next();
+                }
                 if (answerFileInfo.equalsIgnoreCase("yes")) {
                     System.out.println("\nAllowed: \n*Letters\n*Numbers\n*These Characters: (), _, -, , ,, .");
-                    System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, \\, /, :, *, ?, \"," +
+                    System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, /, *, ?, \"," +
                             " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
+                    System.out.print("Enter a file path: ");
+                    filePath = main.next();
+                } else {
+                    System.out.print("Enter a file path: ");
+                    filePath = main.next();
                 }
             }
-            System.out.print("Enter a file path: "); // copy and paste path without quotes
-            filePath = main.next();
+
             File file = new File(filePath);
 
             try {
                 if (file.createNewFile()) {
-                    System.out.print("\nFile created successfully."); // if creating new file
+                    System.out.print("\nFile created successfully.\n"); // if creating new file
                     System.out.print("\nThis is the end of the program.");
                     BufferedWriter buffer = new BufferedWriter(new FileWriter(filePath));
                     buffer.write("Summary of provided information: \n" + loanSummary); // write in to file
                     buffer.close();
                 } else {
-                    System.out.print("\nFile already exists."); // if adding to old file
+                    System.out.print("\nFile already exists.\n"); // if adding to old file
                     System.out.print("\nThis is the end of the program.");
                     BufferedWriter buffer = new BufferedWriter(new FileWriter(filePath));
                     buffer.write("Summary of provided information: \n" + loanSummary); // write in to file
@@ -191,10 +193,13 @@ public class CompleteCodeEdit {
                 }
             } catch (Exception ex) { // error if there are quotes around file path or if it is incorrect
             }
+        } else {
+            System.out.print("\nThis is the end of the program.");
         }
-        System.out.print("\nThis is the end of the program.");
         return loanSummary;
     }
+
     public static double roundingTenths(double numberToRound) {
-        return (int) Math.round(numberToRound*100)/100.0;
+        return (int) Math.round(numberToRound * 100) / 100.0;
     }
+}
