@@ -167,6 +167,7 @@ public class CodeEditWithFile {
                     System.out.println("\nAllowed: \n*Letters\n*Numbers\n*These Characters: (), _, -, , ,, .");
                     System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, /, *, ?, \"," +
                             " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
+                    System.out.println("Example file path: C:\\Users\\naxos\\OneDrive\\Documents\\example.txt\n");
                     System.out.print("Enter a file path: ");
                     filePath = main.next();
                 } else {
