@@ -32,12 +32,12 @@ public class testScores {
                 {"Aeronautics and Astronautics", "Earth and Space Sciences", "Mathematics"}
         };
 
-        // Prompt the user to input their average tilt score
+        //Prompt the user to input their average tilt score
         Scanner scanner = new Scanner(System.in);
         System.out.print("What is your average tilt score? ");
         double averageTiltScore = scanner.nextDouble();
 
-        // Find the index of the matching major grouping
+        //Find the index of the matching major grouping
         //Take avg tilt score, lower range and upper range as parameters to find the index of the
         //matching major grouping. Store the results in matchingIndex.
         int matchingIndex = findMatchingIndex(averageTiltScore, lowerRanges, upperRanges);
@@ -50,7 +50,7 @@ public class testScores {
             String matchingMajorGrouping = majorGroupings[matchingIndex];
             System.out.println("Major Grouping: " + matchingMajorGrouping);
 
-            // Prompt the user if they want to see the specific majors within their majorGrouping
+            //Prompt the user if they want to see the specific majors within their majorGrouping
             System.out.print("Would you like to see the specific majors in this grouping? (Y/N): ");
             String choice = scanner.next();
 
@@ -91,4 +91,6 @@ within the specified range? (-0.47 to 0.42)
 if the user types "yes" or "no" when asked if they want to see the specific majors, nothing happens.
 They have to specifically type "y" or "n" - Do we want to change this?
 Do you agree with how the majors are divided up into majorGroupings?
+Do we want to have something populate that explains what the average Tilt Score means? - before this chunk
+of code is executed? Make it an option to use tilt score?
 */
