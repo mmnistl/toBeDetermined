@@ -26,6 +26,10 @@ Divide the salary by 12 to get monthly amount, then the percentage of the loan r
 Flow of Program:
 
 ## Pseudocode for program:
+Prompt for average Tilt Score ->
+
+Display suggested majors based on avg tilt score ->
+
 Prompt for major → 
 
 prompt for job title →
@@ -123,8 +127,8 @@ https://www.bls.gov/oes/current/oes_nat.htm#00-0000
 Madeline: Creating file
 	obtaining and communicating with major/loan personel to properly format file for Scanner use
 
-Amanda: File/major information
-	Scanning for user input and file based on resonse of user. Store information on career choice and major which will be used by loan personel.
+Amanda: Testing scores utlized to determine appropriate major. 
+	Scanning for user input of average tilt scores. User input checked against 2D array to determine which majorGrouping is appropriate based on the users Tilt score. User then prompted if they would like to see specific majors within their tiltScore MajorGrouping. 
 
 Jasmine: File/loan information
 	Based on career choice loan information will be processes using data from file. Program will be created using math operations, scanner, printstream and potentially arrays.
