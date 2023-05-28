@@ -147,7 +147,7 @@ public class Project {
         int loanMonthlyPay = (int) Math.round(loanRate / 12.0 / 100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0 / 100, loanTerm * 12)))));
         // calculation monthly loan payment
         String loanInformation = "\nLoan: " + loanAmount + "\nInterest rate: " + loanRate + "%\nTerm of loan: " + loanTerm
-                + " years" + "\nMonthly loan payment: $" + loanMonthlyPay ;
+                + " years" + "\nMonthly loan payment: $" + loanMonthlyPay +"\n\n";
         String loanSummary = "";
         for(int i = 0; i < majors.length; i++) {
             //System.out.printf("The national average yearly salary for a %s is $%d\n", jobs[i], salaries[i]);
