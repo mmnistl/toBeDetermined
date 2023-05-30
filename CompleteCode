@@ -36,14 +36,18 @@ public class Project {
         fileCreation(main, loanCalculuation(main, majors, jobs, salaries));
     }
     public static int numberOfMajorsInterested(Scanner main) {
-        System.out.print("\nHow many majors are you interested in? ");
+        System.out.print("\nHow many majors are you interested in? (max 12) ");
         while(!main.hasNextInt()) {
             main.nextLine();
             System.out.println("Invalid input. Please try again.");
             System.out.print("How many majors are you interested in? ");
         }
         int majors = main.nextInt();
-        main.nextLine();
+        if(majors > 12) {
+            numberOfMajorsInterested(main);
+        } else {
+            main.nextLine();
+        }
         return majors;
     }
 
