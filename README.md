@@ -123,12 +123,15 @@ The following is a database of the various jobs nationwide, how many people are 
 Link to Bureau of Labor Statistics
 https://www.bls.gov/oes/current/oes_nat.htm#00-0000
 
+Tilt Scores and how they correlate to major selection:
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://research.collegeboard.org/media/pdf/using-sat-scores-inform-academic-major-related-decisions-planning-campus.pdf
+
 ## Member's Contribution/Role
 Madeline: Creating file
 	obtaining and communicating with major/loan personel to properly format file for Scanner use
 
-Amanda: Testing scores utlized to determine appropriate major. 
-	Scanning for user input of average tilt scores. User input checked against 2D array to determine which majorGrouping is appropriate based on the users Tilt score. User then prompted if they would like to see specific majors within their tiltScore MajorGrouping. 
+Amanda: Tilt Scores 
+	User input checked against 2D array to determine which specific majors are appropriate based on the users Tilt Score. 
 
 Jasmine: File/loan information
 	Based on career choice loan information will be processes using data from file. Program will be created using math operations, scanner, printstream and potentially arrays.
