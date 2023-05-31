@@ -34,6 +34,15 @@ public class Project {
         };
 
         //interactive portion
+        String message = """
+            Welcome!
+            This program will assist you in visualizing how a college loan will affect you financially.
+            You may find this information useful when determining the amount of your student loan and potential careers.
+            We'll start by looking at your average Tilt Score to determine which majors you will likely excel in.
+            Let's get started!
+            """;
+        System.out.println(message);
+        
         getUserTiltScore(lowerRanges, upperRanges, specificMajors);
         String major = majorChoice(main, majorFile);
         String job = jobChoice(main, jobsFile, major);
