@@ -64,7 +64,6 @@ public class Project {
     //tiltScore
     public static void getUserTiltScore(double[] lowerRanges, double[] upperRanges, String[][] specificMajors) {
         Scanner console = new Scanner(System.in);
-        String majorFile = "../project/Majors.txt";//This is not right.
 
         System.out.print("Would you like to use your average Tilt Score to determine your major? (yes/no) ");
         String response = console.nextLine();
@@ -86,10 +85,6 @@ public class Project {
         } else if (response.equalsIgnoreCase("no")) {
             System.out.print("Would you like to see the complete list of majors? (yes/no) ");
             response = console.nextLine();
-
-            if (response.equalsIgnoreCase("yes")) {
-                System.out.println(majorFile);
-            }
         }
     }
     public static int findMatchingIndex(double averageTiltScore, double[] lowerRanges, double[] upperRanges) {
