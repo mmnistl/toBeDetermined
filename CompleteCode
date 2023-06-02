@@ -1,14 +1,16 @@
 package Notes_HW;
+import java.awt.*;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 public class Project {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner main = new Scanner(System.in);
-       //files path with information or just string with information
+        //files path with information or just string with information
         String majorFile = "";
         String jobsFile = "";
         String salariesFile = "";
-        
+
         // Create tilt score range arrays, upper and lower.
         double[] lowerRanges = {-0.47, -0.30, -0.19, -0.18, -0.11, -0.04, -0.04, -0.01, 0.06, 0.12, 0.18, 0.27, 0.42};
         double[] upperRanges = {-0.29, -0.20, -0.19, -0.12, -0.05, -0.04, -0.02, 0.05, 0.11, 0.17, 0.26, 0.41, 0.42};
@@ -39,11 +41,11 @@ public class Project {
         System.out.println("This is an interactive program that prompts the user to choose a major from a four-year university,\nthen choose a corresponding job title. The user will input information about their student\nloan to determine if their average salary will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
         Scanner majorsInFile = new Scanner(new File(majorFile));
         String[] majorsChoices = new String[50]; //dependent on #majors;
-            for (int j = 0; j < majorsChoices.length; j++) {
-                majorsChoices[j] = majorsInFile.nextLine();
-                System.out.printf("%-37s", majorsChoices[j]);
-                if((j + 1 )% 5 == 0) System.out.println();
-            }
+        for (int j = 0; j < majorsChoices.length; j++) {
+            majorsChoices[j] = majorsInFile.nextLine();
+            System.out.printf("%-37s", majorsChoices[j]);
+            if((j + 1 )% 5 == 0) System.out.println();
+        }
         System.out.println();
 
         //stores information of chosen majors
@@ -218,17 +220,102 @@ public class Project {
         String loanInformation = "\nLoan: " + loanAmount + "\nInterest rate: " + loanRate + "%\nTerm of loan: " + loanTerm
                 + " years" + "\nMonthly loan payment: $" + loanMonthlyPay +"\n\n";
         String loanSummary = "";
+        // Launches a variable size drawing panel window
+        int fxCount = majors.length, fX = 420, fY = 270, graphX = 40, graphY = 70;
+        if (majors.length > 1) fY += 200;
+        if (majors.length > 2) fY += 200;
+        if (majors.length > 3) fX += 380;
+        if (majors.length > 6) fX += 380;
+        if (majors.length > 9) fX += 380;
+        DrawingPanel panel = new DrawingPanel(fX, fY);
+        Graphics g = panel.getGraphics();
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, fX, fY);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Trebuchet MS", Font.BOLD, 40));
+        g.drawString("Job-O-Meter", fX / 2 - 115, 50);
+        // end of drawing panel creation stuff
         for(int i = 0; i < majors.length; i++) {
             //System.out.printf("The national average yearly salary for a %s is $%d\n", jobs[i], salaries[i]);
             int loanPercentSalary = (int) Math.round(loanMonthlyPay * 12.0 / salaries[i] * 100);
-             loanSummary += "Major: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
+            double doubleLoanPercentSalary = (double) (loanMonthlyPay * 12) / salaries[i] * 100;
+            loanSummary += "\nMajor: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
                     + "\nPercent of monthly salary going towards loan: "
-                    + loanPercentSalary + "%\n\n";
+                    + loanPercentSalary + "%\n";
+            drawGraph(g, graphX, graphY, doubleLoanPercentSalary, jobs[i]);
+            graphY += 200;
+            if (graphY > 470) {
+                graphX += 380;
+                graphY = 70;
+            }
         }
-        System.out.println("\nSummary of provided information: \n" + loanInformation + "\n\n" + loanSummary);
-        return loanInformation + loanSummary;
-    }
+        System.out.println("\nSummary of provided information: \n" + loanInformation + "\n" + loanSummary);
 
+        return loanInformation + "\n" + loanSummary;
+    }
+    // Drawing panel code stuff
+    public static void drawGraph(Graphics g, int x, int y, double loan, String job) {
+        int lineCount = 10; // used to draw some lines in the meters
+        // just lets the text tell you if you are over or under the recommended 8% limit
+        String underOver = "over";
+        if (loan < 8) underOver = "under";
+        DecimalFormat df = new DecimalFormat("##.##");
+        // handles the text box, text, and shadow effect for the bars
+        g.setColor(Color.BLACK);
+        g.fillRect(x - 1, y + 9, 23, 143);
+        g.drawRect(x + 60, y + 30, 280, 130);
+        g.fillOval(x - 1, y - 1, 23, 24);
+        g.fillOval(x - 1, y + 138, 23, 24);
+        g.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
+        g.drawString(job, x + 60, y + 20);
+        g.setFont(new Font("Trebuchet MS",Font.PLAIN, 12));
+        g.drawString("Based on the information you have entered, the", x + 65, y + 45);
+        g.drawString("percentage of your average salary going towards", x + 65, y + 59);
+        g.drawString("loan payments would be " + df.format(loan) + "%, which is " + underOver, x + 65, y + 73);
+        g.drawString("the Department of Education's recommended 8%", x + 65, y + 87);
+        g.drawString("limit.", x + 65, y + 101);
+        if (loan > 8) {
+            g.drawString("Due to this high percentage, it may also be", x + 65, y + 115);
+            g.drawString("prudent to do additional research into housing", x + 65, y + 129);
+            g.drawString("costs, entry-level pay, and other job-related", x + 65, y + 143);
+            g.drawString("expenses, should you wish to pursue this career.", x + 65, y + 157);
+        }
+        // draws the bars
+        g.setColor(Color.GREEN);
+        g.fillOval(x, y, 20, 22);
+        g.fillRect(x, y + 10, 20, 30);
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y + 40, 20, 40);
+        g.setColor(Color.ORANGE);
+        g.fillRect(x, y + 80, 20, 40);
+        g.setColor(Color.RED);
+        g.fillRect(x, y + 120, 20, 30);
+        g.fillOval(x, y + 138, 20, 22);
+        g.setColor(Color.BLACK);
+        // adds some cool lines to the bars
+        for (int i =  0; i < 29; i++) {
+            g.drawLine(x + 16, y + lineCount, x + 20, y + lineCount);
+            lineCount = lineCount + 5;
+        }
+        // adds some labels to the bars
+        g.setFont(new Font("Trebuchet MS", Font.PLAIN, 12));
+        g.drawString("4%", x + 2, y + 45);
+        g.drawString("6%", x + 2, y + 85);
+        g.drawString("8%", x + 2, y + 125);
+        // calculates the arrow height and prevents it from going too high or low on the meter
+        double arrowY = (loan - 2) * 20;
+        if (arrowY > 160) arrowY = 160;
+        if (arrowY < 0) arrowY = 0;
+        // draws the pointy arrow
+        drawArrow(g, x + 25, (int) (y + arrowY));
+    }
+    // draws the arrow, doesn't really need to be a separate method now but everything used to be more modular
+    public static void drawArrow(Graphics g, int x, int y) {
+        g.setColor(Color.BLACK);
+        g.drawLine(x, y, x + 5, y - 5);
+        g.drawLine(x, y, x + 5, y + 5);
+        g.drawLine(x, y, x + 15, y);
+    }
     //final file output
     public static void fileCreation(Scanner main,String loanSummary) throws FileNotFoundException {
         // start of file method
