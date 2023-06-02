@@ -7,7 +7,7 @@ public class Project {
         String majorFile = "";
         String jobsFile = "";
         String salariesFile = "";
-        System.out.println("This is an interactive program that prompts the user to choose a major from a four-year university,\nthen choose a corresponding job title. The user will input information about their student\nloan to determine if their average salary will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
+        System.out.println("This is an interactive program that prompts the user to choose majors from a four-year university, then choose corresponding job titles.\nThe user will input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
 
         // Create tilt score range arrays, upper and lower.
         double[] lowerRanges = {-0.47, -0.30, -0.19, -0.18, -0.11, -0.04, -0.04, -0.01, 0.06, 0.12, 0.18, 0.27, 0.42};
@@ -178,11 +178,11 @@ public class Project {
     }
     // loan information
     public static String loanCalculuation(Scanner main, String[] majors, String[] jobs, int[] salaries) throws FileNotFoundException {
-        System.out.println("\nBased on your career of interest the following prompts will provide some information on your student loan payments");
+        System.out.println("\nBased on your careers of interest the following prompts will provide some information on your student loan payments");
         //loan
         System.out.print("\nStudent loan amount: $");
         while (!main.hasNextInt()){
-            System.out.println("This is an invalid output. Please try again.");
+            System.out.println("Invalid input. Please try again.");
             System.out.print("Student loan amount: $");
             main.nextLine();
         }
@@ -192,7 +192,7 @@ public class Project {
         System.out.print("\nStudent loan rate (as a percent): ");
         while (!main.hasNextDouble()) {
             main.next();
-            System.out.println("This is an invalid output. Please put your loan rate in as a percent (w/o the percent symbol)");
+            System.out.println("Invalid input. Please put your loan rate in as a percent (w/o the percent symbol).");
             System.out.print("Student loan rate (as a percent): ");
             main.nextLine();
         }
@@ -202,7 +202,7 @@ public class Project {
         System.out.print("\nTerm of loan (in years): ");
         while (!main.hasNextInt()) {
             main.next();
-            System.out.println("This is an invalid input. Make sure you are inputting a numerical value, no special characters.");
+            System.out.println("Invalid input. Make sure you are inputting a numerical value, no special characters.");
             System.out.print("Term of loan (in years): ");
             main.nextLine();
         }
@@ -210,21 +210,21 @@ public class Project {
         int loanMonthlyPay = (int) Math.round(loanRate / 12.0 / 100 * (loanAmount / (1 - (1 / Math.pow(1 + loanRate / 12.0 / 100, loanTerm * 12)))));
         // calculation monthly loan payment
         String loanInformation = "\nLoan: " + loanAmount + "\nInterest rate: " + loanRate + "%\nTerm of loan: " + loanTerm
-                + " years" + "\nMonthly loan payment: $" + loanMonthlyPay +"\n\n";
+                + " years" + "\nMonthly loan payment: $" + loanMonthlyPay;
         String loanSummary = "";
         for(int i = 0; i < majors.length; i++) {
             //System.out.printf("The national average yearly salary for a %s is $%d\n", jobs[i], salaries[i]);
             int loanPercentSalary = (int) Math.round(loanMonthlyPay * 12.0 / salaries[i] * 100);
-             loanSummary += "Major: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
+             loanSummary += "\nMajor: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
                     + "\nPercent of monthly salary going towards loan: "
-                    + loanPercentSalary + "%\n\n";
+                    + loanPercentSalary + "%\n";
         }
-        System.out.println("\nSummary of provided information: \n" + loanInformation + "\n\n" + loanSummary);
-        return loanInformation + loanSummary;
+        System.out.println("\nSummary of provided information: \n" + loanInformation + "\n" + loanSummary);
+        return loanInformation + "\n" + loanSummary;
     }
 
     //final file output
-    public static void fileCreation(Scanner main,String loanSummary) throws FileNotFoundException {
+    public static void fileCreation(Scanner main, String loanSummary) throws FileNotFoundException {
         // start of file method
         System.out.print("\nDo you want a copy of this information stored on a separate file? ");
         String response = main.next();
@@ -246,45 +246,43 @@ public class Project {
                     (filePath.indexOf('=') != -1) || (filePath.indexOf('{') != -1) || (filePath.indexOf('}') != -1) ||
                     (filePath.indexOf('[') != -1) || (filePath.indexOf(']') != -1) || (filePath.indexOf(';') != -1) || (filePath.indexOf('!') != -1)) { // have to account for special characters
                 System.out.println("Invalid file path.");
-                System.out.print("Do you want information on proper file paths(yes/no)? ");
+                System.out.print("Do you want information on proper file paths (yes/no)? ");
                 String answerFileInfo = main.next();
                 while (!answerFileInfo.equalsIgnoreCase("yes") && !answerFileInfo.equalsIgnoreCase("no")) {
                     System.out.println("Invalid response (yes/no).");
-                    System.out.print("Do you want information on proper file paths(yes/no)? ");
+                    System.out.print("Do you want information on proper file paths (yes/no)? ");
                     answerFileInfo = main.next();
+                    }
                     if (answerFileInfo.equalsIgnoreCase("yes")) {
                         System.out.println("\nAllowed: \n*Letters\n*Numbers\n*These Characters: (), _, -, , ,, .");
                         System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, /, *, ?, \"," +
                                 " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
                         System.out.println("Example file path: C:\\Users\\naxos\\OneDrive\\Documents\\example.txt\n");
                         System.out.print("Enter a file path: ");
-                        filePath = main.nextLine();
-                    }
-                }
+                        filePath = main.next();
+                } else {
                 System.out.print("Enter a file path: ");
                 filePath = main.nextLine();
+                }
             }
-
+            
             File file = new File(filePath);
 
             try {
                 if (file.createNewFile()) {
                     System.out.print("\nFile created successfully.\n"); // if creating new file
-                    System.out.print("\nThis is the end of the program.");
                     BufferedWriter buffer = new BufferedWriter(new FileWriter(filePath));
                     buffer.write("Summary of provided information: \n" + loanSummary); // write in to file
                     buffer.close();
                 } else {
                     System.out.print("\nFile already exists.\n"); // if adding to old file
-                    System.out.print("\nThis is the end of the program.");
                     BufferedWriter buffer = new BufferedWriter(new FileWriter(filePath));
                     buffer.write("Summary of provided information: \n" + loanSummary); // write in to file
                     buffer.close();
                 }
-            } catch (Exception ex) { // error if there are quotes around file path or if it is incorrect
+            } catch (Exception ex) { // for buffer
             }
-        } else {
-            System.out.print("\nThis is the end of the program.");
-        }
-    }
+         } 
+         System.out.print("\nThis is the end of the program.");
+     }
 }
