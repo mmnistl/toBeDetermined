@@ -48,64 +48,33 @@ display graphic
 ## Example output:
 
 This is an interactive program that prompts the user to choose a major from a four-year university, then choose a corresponding job title. The user will input information about their student loan to determine if their average salary will be able to cover their monthly loan payments. This is applicable to universities in the United States only.
-//could attempt to store all data into one file (need to ensure we keep track of key names e.g. Major)
-Name of major? Pizza 
 
-Please choose a major from the following list:
-A
-Anthropology
-Astrophysics
-B
-Biology
-Business
-…
-// accommodate for upper/lower case
-// use error (string vs int vs double)
+Would you like to use your Tilt Score to determine your major? (yes/no)
+
+These are the majors that correspond to your Tilt Score:
+//compelte Majors list to console.
+
+How many majors are you interested in? (max 12)
+
+Chosen Major:
 
 New output:
-That is not the name of a listed major. Please check your spelling and try again.
 
-Name of major? Biology
+Jobs you can get with a four-year + major + degree:
+//prints jobs associated with major
 
-Please choose a major from the following list:
-A
-Anthropology
-Astrophysics
-B
-Biology
-Business
-…
+Which job interests you?
 
-New output:
-Name of job title? 3.5
+Based on your careers of interest the following prompts will provide some information on your student loan payments.
 
-Jobs you can get with a four-year Biology degree:
-Biologist
-Teacher
-Technician
-…
+Student loan amount: $
 
-New output:
-That is not the name of a listed job title. Please check your spelling and try again.
+Student loan rate (as a percent):
 
-Name of job title? Teacher
+Term of loan (in years):
 
-Jobs you can get with a four-year Biology degree:
-Biologist
-Teacher
-Technician
-…
+Summary of provided information example:
 
-New output:
-The national average yearly salary for a Teacher is $45,000.
-
-Student loan amount (no more than six digits)? $100000
-
-Interest rate on loan(as a percentage)? 4.5
-
-Term of loan(in years)? 20
-
-Final output: 
 Chosen major: Biology
 Chosen job: Teacher
 Average yearly salary: $45,000
@@ -114,6 +83,10 @@ Interest rate: 4.5%
 Term of loan: 20 years
 Monthly loan payment: $632
 Percentage of monthly salary going toward loan: 17%
+
+Do you want a copy of this information stored on a separate file?
+Enter file path:
+This is the end of the program.
 
 ## Graphics:
 The lower the percentage of your monthly salary going toward loan, the lower (greener) the meter and vise versa. Green would mean <=10%, yellow 10% to <=15%, orange 15% to <=20%, and red >20%.
@@ -130,7 +103,7 @@ chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://research.collegeboar
 Madeline: Creating file
 	obtaining and communicating with major/loan personel to properly format file for Scanner use
 
-Amanda: Tilt Scores 
+Amanda: Github, Tilt Scores 
 	User input checked against 2D array to determine which specific majors are appropriate based on the users Tilt Score. 
 
 Jasmine: File/loan information
