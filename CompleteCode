@@ -4,9 +4,9 @@ public class Project {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner main = new Scanner(System.in);
         //files path with information or just string with information
-        String majorFile = "../project/Majors.txt";
-        String jobsFile = "../project/Jobs.txt";
-        String salariesFile = "../project/JobsSalaries.txt";
+        String majorFile = "";
+        String jobsFile = "";
+        String salariesFile = "";
         System.out.println("This is an interactive program that prompts the user to choose majors from a four-year university, then choose corresponding job titles.\nThe user will input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
 
         // Create tilt score range arrays, upper and lower.
