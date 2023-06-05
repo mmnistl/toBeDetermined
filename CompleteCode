@@ -3,10 +3,10 @@ import java.util.*;
 public class Project {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner main = new Scanner(System.in);
-       //files path with information or just string with information
-        String majorFile = "";
-        String jobsFile = "";
-        String salariesFile = "";
+        //files path with information or just string with information
+        String majorFile = "../project/Majors.txt";
+        String jobsFile = "../project/Jobs.txt";
+        String salariesFile = "../project/JobsSalaries.txt";
         System.out.println("This is an interactive program that prompts the user to choose majors from a four-year university, then choose corresponding job titles.\nThe user will input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
 
         // Create tilt score range arrays, upper and lower.
@@ -38,11 +38,11 @@ public class Project {
         //printing majors & storing majors in array
         Scanner majorsInFile = new Scanner(new File(majorFile));
         String[] majorsChoices = new String[50]; //dependent on #majors;
-            for (int j = 0; j < majorsChoices.length; j++) {
-                majorsChoices[j] = majorsInFile.nextLine();
-                System.out.printf("%-37s", majorsChoices[j]);
-                if((j + 1 )% 5 == 0) System.out.println();
-            }
+        for (int j = 0; j < majorsChoices.length; j++) {
+            majorsChoices[j] = majorsInFile.nextLine();
+            System.out.printf("%-37s", majorsChoices[j]);
+            if((j + 1 )% 5 == 0) System.out.println();
+        }
         System.out.println();
 
         //stores information of chosen majors
@@ -58,35 +58,45 @@ public class Project {
             salaries[run] = getSalary(salariesFile, jobs[run]);
         }
 
-        //will calculate loan information and print the summary onto a final file (need to find out how to make a file)
+        //will calculate loan information and print the summary onto a final file
         fileCreation(main, loanCalculuation(main, majors, jobs, salaries));
     }
     //tiltScore
     public static void getUserTiltScore(double[] lowerRanges, double[] upperRanges, String[][] specificMajors) {
         Scanner console = new Scanner(System.in);
 
-        System.out.print("Would you like to use your average Tilt Score to determine your major? (yes/no) ");
+        System.out.print("Would you like to use your Tilt Score to determine your major? (yes/no) ");
         String response = console.nextLine();
 
         if (response.equalsIgnoreCase("yes")) {
-            System.out.print("What is your average Tilt Score? ");
-            double averageTiltScore = console.nextDouble();
+            System.out.print("What is your Tilt Score? ");
 
-            int matchingIndex = findMatchingIndex(averageTiltScore, lowerRanges, upperRanges);
+            while (!console.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a number in decimal format.");
+                System.out.print("What is your Tilt Score? ");
+                console.nextLine();
+            }
+
+            double tiltScore = console.nextDouble();
+            console.nextLine();
+
+            int matchingIndex = findMatchingIndex(tiltScore, lowerRanges, upperRanges);
 
             if (matchingIndex >= 0 && matchingIndex < specificMajors.length) {
-                System.out.println("These are the majors that correspond to your average Tilt Score:");
+                System.out.println("These are the majors that correspond to your Tilt Score:");
                 for (String major : specificMajors[matchingIndex]) {
                     System.out.println("- " + major);
                 }
+                System.out.println();
+                System.out.println("Additionally, here is the complete list of Majors: \n");
             } else {
-                System.out.println("No matching majors found based on your average Tilt Score.\n");
+                System.out.println("No matching majors found based on your Tilt Score.\n");
             }
-        } else if (response.equalsIgnoreCase("no")) {
-            System.out.print("Would you like to see the complete list of majors? (yes/no) ");
-            response = console.nextLine();
+        } else if(response.equalsIgnoreCase("no")){
+            System.out.print("Here is the complete list of Majors to choose from: \n");
         }
     }
+
     public static int findMatchingIndex(double averageTiltScore, double[] lowerRanges, double[] upperRanges) {
         for (int i = 0; i < lowerRanges.length; i++) {
             if (averageTiltScore >= lowerRanges[i] && averageTiltScore <= upperRanges[i]) {
@@ -215,7 +225,7 @@ public class Project {
         for(int i = 0; i < majors.length; i++) {
             //System.out.printf("The national average yearly salary for a %s is $%d\n", jobs[i], salaries[i]);
             int loanPercentSalary = (int) Math.round(loanMonthlyPay * 12.0 / salaries[i] * 100);
-             loanSummary += "\nMajor: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
+            loanSummary += "\nMajor: " + majors[i] + "\nChosen job: " + jobs[i] + "\nAverage yearly salary: $" + salaries[i]
                     + "\nPercent of monthly salary going towards loan: "
                     + loanPercentSalary + "%\n";
         }
@@ -252,20 +262,20 @@ public class Project {
                     System.out.println("Invalid response (yes/no).");
                     System.out.print("Do you want information on proper file paths (yes/no)? ");
                     answerFileInfo = main.next();
-                    }
-                    if (answerFileInfo.equalsIgnoreCase("yes")) {
-                        System.out.println("\nAllowed: \n*Letters\n*Numbers\n*These Characters: (), _, -, , ,, .");
-                        System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, /, *, ?, \"," +
-                                " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
-                        System.out.println("Example file path: C:\\Users\\naxos\\OneDrive\\Documents\\example.txt\n");
-                        System.out.print("Enter a file path: ");
-                        filePath = main.next();
+                }
+                if (answerFileInfo.equalsIgnoreCase("yes")) {
+                    System.out.println("\nAllowed: \n*Letters\n*Numbers\n*These Characters: (), _, -, , ,, .");
+                    System.out.println("\nNot Allowed: \n*Spaces\n*Special Characters: @, $, %, &, /, *, ?, \"," +
+                            " ', <, >, |, ~, `, #, ^, +, =, {, }, [, ], ;, !\n");
+                    System.out.println("Example file path: C:\\Users\\naxos\\OneDrive\\Documents\\example.txt\n");
+                    System.out.print("Enter a file path: ");
+                    filePath = main.next();
                 } else {
-                System.out.print("Enter a file path: ");
-                filePath = main.nextLine();
+                    System.out.print("Enter a file path: ");
+                    filePath = main.nextLine();
                 }
             }
-            
+
             File file = new File(filePath);
 
             try {
@@ -282,7 +292,7 @@ public class Project {
                 }
             } catch (Exception ex) { // for buffer
             }
-         } 
-         System.out.print("\nThis is the end of the program.");
-     }
+        }
+        System.out.print("\nThis is the end of the program.");
+    }
 }
