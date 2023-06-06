@@ -7,7 +7,7 @@ public class Project {
         String majorFile = "";
         String jobsFile = "";
         String salariesFile = "";
-        System.out.println("This is an interactive program that prompts the user to choose majors from a four-year university, then choose corresponding job titles.\nThe user will input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
+        System.out.println("This interactive program prompts the user to enter a Tilt Score or choose majors from a four-year university, then choose corresponding job titles.\nThe user will then input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
 
         // Create tilt score range arrays, upper and lower.
         double[] lowerRanges = {-0.47, -0.30, -0.19, -0.18, -0.11, -0.04, -0.04, -0.01, 0.06, 0.12, 0.18, 0.27, 0.42};
@@ -67,9 +67,15 @@ public class Project {
 
         System.out.print("Would you like to use your Tilt Score to determine your major? (yes/no) ");
         String response = console.nextLine();
+        
+        while (!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
+            System.out.println("Invalid input. Please try again.");
+            System.out.print("Would you like to use your Tilt Score to determine your major? (yes/no) ");
+            response = console.nextLine();
+        }
 
         if (response.equalsIgnoreCase("yes")) {
-            System.out.print("What is your Tilt Score? ");
+            System.out.print("\nWhat is your Tilt Score? ");
 
             while (!console.hasNextDouble()) {
                 System.out.println("Invalid input. Please enter a number in decimal format.");
@@ -83,17 +89,18 @@ public class Project {
             int matchingIndex = findMatchingIndex(tiltScore, lowerRanges, upperRanges);
 
             if (matchingIndex >= 0 && matchingIndex < specificMajors.length) {
-                System.out.println("These are the majors that correspond to your Tilt Score:");
+                System.out.println("\nThese are the majors that correspond to your Tilt Score:");
                 for (String major : specificMajors[matchingIndex]) {
                     System.out.println("- " + major);
                 }
                 System.out.println();
-                System.out.println("Additionally, here is the complete list of Majors: \n");
+                System.out.println("Additionally, here is the complete list of Majors:");
             } else {
-                System.out.println("No matching majors found based on your Tilt Score.\n");
+                System.out.println("\nNo matching majors found based on your Tilt Score.");
+                System.out.println("\nHere is the complete list of Majors to choose from:");
             }
         } else if(response.equalsIgnoreCase("no")){
-            System.out.print("Here is the complete list of Majors to choose from: \n");
+            System.out.println("\nHere is the complete list of Majors to choose from:");
         }
     }
 
@@ -123,7 +130,7 @@ public class Project {
 
     // majors
     public static String majorChoice(Scanner main,String[] majorsChoices, int run) throws FileNotFoundException {
-        System.out.print("\nChosen major #" + (run + 1) + ":");
+        System.out.print("\nChosen major #" + (run + 1) + ": ");
         String major = main.nextLine();
         int i = 0;
         while (i < majorsChoices.length) {
@@ -188,7 +195,7 @@ public class Project {
     }
     // loan information
     public static String loanCalculuation(Scanner main, String[] majors, String[] jobs, int[] salaries) throws FileNotFoundException {
-        System.out.println("\nBased on your careers of interest the following prompts will provide some information on your student loan payments");
+        System.out.println("\nBased on your careers of interest the following prompts will provide some information on your student loan payments.");
         //loan
         System.out.print("\nStudent loan amount: $");
         while (!main.hasNextInt()){
