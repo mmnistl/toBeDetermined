@@ -106,8 +106,8 @@ Madeline: Creating file
 Amanda: Github, Tilt Scores 
 	User input checked against 2D array to determine which specific majors are appropriate based on the users Tilt Score. 
 
-Jasmine: File/loan information
-	Based on career choice loan information will be processes using data from file. Program will be created using math operations, scanner, printstream and potentially arrays.
+Jasmine: created major/job/salary/multiple_major_options/loan_calculation methods
+	Based on career choice loan information will be processes using data from file. Program will be created using math operations, scanners, loops, and stored in arrays.
 
 Ryan: Graphic design 
 	Based on final information on final loan rate.
