@@ -77,7 +77,7 @@ public class Project {
         }
 
         if (response.equalsIgnoreCase("yes")) {
-            System.out.print("\nWhat is your Tilt Score? ");
+            System.out.print("\nWhat is your Tilt Score? (-0.47 to 0.42)");
 
             while (!console.hasNextDouble()) {
                 System.out.println("Invalid input. Please enter a number in decimal format.");
@@ -106,9 +106,9 @@ public class Project {
         }
     }
 
-    public static int findMatchingIndex(double averageTiltScore, double[] lowerRanges, double[] upperRanges) {
+    public static int findMatchingIndex(double tiltScore, double[] lowerRanges, double[] upperRanges) {
         for (int i = 0; i < lowerRanges.length; i++) {
-            if (averageTiltScore >= lowerRanges[i] && averageTiltScore <= upperRanges[i]) {
+            if (tiltScore >= lowerRanges[i] && tiltScore <= upperRanges[i]) {
                 return i;
             }
         }
