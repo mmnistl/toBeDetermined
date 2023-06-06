@@ -5,10 +5,10 @@ import java.util.*;
 public class Project {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner main = new Scanner(System.in);
-        //files path with information or just string with information
-        String majorFile = "D:\\Desktop\\School Stuff\\[401] CS& 141 - Computer Science I\\Coding Projects\\Group Project 4\\src\\Majors.txt";
-        String jobsFile = "D:\\Desktop\\School Stuff\\[401] CS& 141 - Computer Science I\\Coding Projects\\Group Project 4\\src\\JobsFile.txt";
-        String salariesFile = "D:\\Desktop\\School Stuff\\[401] CS& 141 - Computer Science I\\Coding Projects\\Group Project 4\\src\\SalariesFile.txt";
+        //put file paths here
+        String majorFile = "";
+        String jobsFile = "";
+        String salariesFile = "";
         System.out.println("This interactive program prompts the user to enter a Tilt Score or choose majors from a four-year university, then choose corresponding job titles.\nThe user will then input student loan information to determine if their average salaries will be able to cover their monthly loan payments.\nThis is applicable to universities in the United States only.\n");
 
         // Create tilt score range arrays, upper and lower.
@@ -329,7 +329,7 @@ public class Project {
     //final file output
     public static void fileCreation(Scanner main, String loanSummary) throws FileNotFoundException {
         // start of file method
-        System.out.print("\nDo you want a copy of this information stored on a separate file? ");
+        System.out.print("Do you want a copy of this information stored on a separate file? ");
         String response = main.next();
         while (!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
             System.out.println("Invalid response (yes/no).");
